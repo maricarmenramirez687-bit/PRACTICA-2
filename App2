@@ -1,0 +1,86 @@
+## Carrega bibliotecas essenciais para o funcionamento do código
+import requests
+import ipywidgets as widgets
+import pandas as pd
+
+from bs4 import BeautifulSoup
+from google.colab import files
+from IPython.display import display
+
+
+## Define variáveis globais para serem usadas nas consultas
+colecao_acronimo_g = 'scl'
+revista_titulo_g = ''
+revista_acronimo_g = ''
+revista_ano_g = ''
+revista_volume_g = ''
+revista_numeros_g = ''
+acessos_data_inicio_g = ''
+acessos_data_fim_g = ''
+
+
+## Define interface para usuário digitar dados
+colecao_acronimo_widget = widgets.Text(
+    value='scl',
+    description='Acrônimo da Coleção:',
+    disabled=False
+)
+
+revista_titulo_widget = widgets.Text(
+    value='Revista CEFAC',
+    description='Título da Revista:',
+    disabled=False
+)
+
+revista_acronimo_widget = widgets.Text(
+    value='rcefac',
+    description='Acrônimo da Revista:',
+    disabled=False
+)
+
+revista_ano_widget = widgets.IntText(
+    value=2024,
+    description='Ano da Revista:',
+    disabled=False
+)
+
+revista_volume_widget = widgets.IntText(
+    value=26,
+    description='Volume da Revista:',
+    disabled=False
+)
+
+revista_numeros_string_widget = widgets.Text(
+    value='1, 2, 3, 4, 5, 6',
+    description='Números da Revista (separados por vírgula):',
+    disabled=False
+)
+
+acessos_data_inicio_widget = widgets.Text(
+    value='2024-01-01',
+    description='Data de Início dos Acessos (YYYY-MM-DD):',
+    disabled=False
+)
+
+acessos_data_fim_widget = widgets.Text(
+    value='2024-12-31',
+    description='Data de Fim dos Acessos (YYYY-MM-DD):',
+    disabled=False
+)
+
+def definir_variaveis(colecao_acronimo, revista_titulo, revista_acronimo, revista_ano, revista_volume, revista_numeros_string, acessos_data_inicio, acessos_data_fim):
+    global colecao_acronimo_g, revista_titulo_g, revista_acronimo_g, revista_ano_g, revista_volume_g, revista_numeros_g, acessos_data_inicio_g, acessos_data_fim_g
+
+    colecao_acronimo_g = colecao_acronimo
+    revista_titulo_g = revista_titulo
+    revista_acronimo_g = revista_acronimo
+    revista_ano_g = revista_ano
+    revista_volume_g = revista_volume
+
+    try:
+        revista_numeros_g = [int(n.strip()) for n in revista_numeros_string.split(',')]
+    except ValueError:
+        print("Erro: Certifique-se de que os números estejam separados por vírgula e sejam números inteiros.")
+
+    acessos_data_inicio_g = acessos_data_inicio
+    acessos_data_fim_g = acessos_data_fim
